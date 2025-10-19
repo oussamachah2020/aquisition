@@ -5,8 +5,11 @@ import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from '#routes/auth.route.js';
+import securityMiddleware from '#middleware/security.middleware.js';
 
 const app = express();
+
+app.set('trust proxy', true);
 
 app.use(helmet());
 app.use(cors());
@@ -15,6 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+
+app.use(securityMiddleware);
 
 app.use(
   morgan('combined', {
