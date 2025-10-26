@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      target: prod
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
