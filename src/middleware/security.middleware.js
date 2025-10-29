@@ -69,13 +69,13 @@ const securityMiddleware = async (req, res, next) => {
         userAgent: req.get('User-Agent'),
         path: req.path,
         method: req.method,
-        role: role,
+        role,
       });
 
       return res.status(429).json({
         // Changed to 429 for rate limiting
         error: 'Too Many Requests',
-        message: message, // Use the specific message for the role
+        message, // Use the specific message for the role
       });
     }
 
@@ -84,7 +84,7 @@ const securityMiddleware = async (req, res, next) => {
       ip: req.ip,
       path: req.path,
       method: req.method,
-      role: role,
+      role,
     });
 
     next();
