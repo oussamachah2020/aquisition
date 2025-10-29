@@ -4,8 +4,10 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import authRoutes from '#routes/auth.route.js';
 import securityMiddleware from '#middleware/security.middleware.js';
+import { deserializeUser } from '#middleware/auth.middleware.js';
+import authRoutes from '#routes/auth.routes.js';
+import usersRoutes from '#routes/users.routes.js';
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
+// Attach req.user if present so rate-limits and routes know the role
+app.use(deserializeUser);
 app.use(securityMiddleware);
 
 app.use(
@@ -45,5 +49,9 @@ app.get('/api', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/users', usersRoutes);
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
 
 export default app;

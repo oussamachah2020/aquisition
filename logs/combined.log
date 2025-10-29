@@ -784,3 +784,9 @@
 {"ip":"::1","level":"warn","message":"Rate limit exceeded","method":"GET","path":"/health","role":"guest","service":"aquisitions-api","userAgent":"HTTPie"}
 {"ip":"::1","level":"warn","message":"Rate limit exceeded","method":"GET","path":"/health","role":"guest","service":"aquisitions-api","userAgent":"HTTPie"}
 {"ip":"::1","level":"warn","message":"Rate limit exceeded","method":"GET","path":"/health","role":"guest","service":"aquisitions-api","userAgent":"HTTPie"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"Request allowed","method":"GET","path":"/health","role":"guest","service":"aquisitions-api"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Oct/2025:19:59:14 +0000] \"GET /health HTTP/1.1\" 200 75 \"-\" \"-\"","service":"aquisitions-api"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"Request allowed","method":"GET","path":"/api","role":"guest","service":"aquisitions-api"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Oct/2025:19:59:14 +0000] \"GET /api HTTP/1.1\" 200 41 \"-\" \"-\"","service":"aquisitions-api"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"Request allowed","method":"GET","path":"/nonexistent","role":"guest","service":"aquisitions-api"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [29/Oct/2025:19:59:14 +0000] \"GET /nonexistent HTTP/1.1\" 404 29 \"-\" \"-\"","service":"aquisitions-api"}

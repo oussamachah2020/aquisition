@@ -1,0 +1,75 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests (with coverage)
+        id: tests
+        env:
+          CI: true
+          NODE_ENV: test
+          NODE_OPTIONS: --experimental-vm-modules
+          DATABASE_URL: ${{ secrets.DATABASE_URL_TEST != '' && secrets.DATABASE_URL_TEST || 'postgres://postgres:postgres@localhost:5432/test?sslmode=disable' }}
+        run: |
+          # Ensure coverage is attempted; keeps using the project's npm test script
+          npm test -- --coverage
+        continue-on-error: true
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Test summary
+        if: always()
+        run: |
+          {
+            echo "## Test Results";
+            if [ "${{ steps.tests.outcome }}" = "success" ]; then
+              echo "- Status: ✅ Passed";
+            else
+              echo "- Status: ❌ Failed";
+            fi
+
+            if [ -f coverage/coverage-summary.json ]; then
+              node -e "const fs=require('fs');try{const s=JSON.parse(fs.readFileSync('coverage/coverage-summary.json','utf8'));const t=s.total||{};const pct=k=>t[k]?.pct??0;console.log(`- Coverage: statements ${pct('statements')}% | branches ${pct('branches')}% | functions ${pct('functions')}% | lines ${pct('lines')}%`)}catch(e){console.log('- Coverage: available (failed to parse summary)')}" >> "$GITHUB_STEP_SUMMARY";
+            else
+              echo "- Coverage: not found" >> "$GITHUB_STEP_SUMMARY";
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Annotations for failures
+        if: always() && steps.tests.outcome == 'failure'
+        run: |
+          echo "::error::Tests failed. See logs above. Ensure required env vars are set and run 'npm test' locally."
+
+      - name: Fail if tests failed
+        if: always()
+        run: |
+          if [ "${{ steps.tests.outcome }}" = "failure" ]; then
+            exit 1;
+          fi
