@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1761767954449" clover="3.2.0">
-  <project timestamp="1761767954449" name="All files">
-    <metrics statements="856" coveredstatements="357" conditionals="26" coveredconditionals="9" methods="29" coveredmethods="6" elements="911" coveredelements="372" complexity="0" loc="856" ncloc="856" packages="9" files="18" classes="18"/>
+<coverage generated="1761949084861" clover="3.2.0">
+  <project timestamp="1761949084861" name="All files">
+    <metrics statements="854" coveredstatements="355" conditionals="26" coveredconditionals="9" methods="29" coveredmethods="6" elements="909" coveredelements="370" complexity="0" loc="854" ncloc="854" packages="9" files="18" classes="18"/>
     <package name="src">
       <metrics statements="57" coveredstatements="55" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
       <file name="app.js" path="/Users/ayphone/Documents/side_projects/aquisition/src/app.js">
@@ -66,9 +66,9 @@
       </file>
     </package>
     <package name="src.config">
-      <metrics statements="81" coveredstatements="75" conditionals="3" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="79" coveredstatements="73" conditionals="3" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="arcject.js" path="/Users/ayphone/Documents/side_projects/aquisition/src/config/arcject.js">
-        <metrics statements="25" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="23" coveredstatements="23" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -92,8 +92,6 @@
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
       </file>
       <file name="database.js" path="/Users/ayphone/Documents/side_projects/aquisition/src/config/database.js">
         <metrics statements="29" coveredstatements="23" conditionals="2" coveredconditionals="0" methods="0" coveredmethods="0"/>
